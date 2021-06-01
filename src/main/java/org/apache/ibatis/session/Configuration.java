@@ -152,6 +152,9 @@ public class Configuration {
   protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
   protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
+  /**
+   * key:org.apache.ibatis.example.dao.BlogMapper.selectBlog,value:MappedStatement
+   */
   protected final Map<String, MappedStatement> mappedStatements = new StrictMap<MappedStatement>("Mapped Statements collection")
       .conflictMessageProducer((savedValue, targetValue) ->
           ". please check " + savedValue.getResource() + " and " + targetValue.getResource());
@@ -675,6 +678,7 @@ public class Configuration {
     } else {
       executor = new SimpleExecutor(this, transaction);
     }
+    // 如果开启了缓存，这里会使用CachingExecutor，在操作之前进行加减缓存
     if (cacheEnabled) {
       executor = new CachingExecutor(executor);
     }

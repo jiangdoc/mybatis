@@ -33,6 +33,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.io.Resources;
 
 /**
+ * 维护了连接数据库的基本信息
  * @author Clinton Begin
  * @author Eduardo Macarron
  */

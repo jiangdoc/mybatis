@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
+ * 连接代理类
  * @author Clinton Begin
  */
 class PooledConnection implements InvocationHandler {
@@ -242,6 +243,7 @@ class PooledConnection implements InvocationHandler {
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     String methodName = method.getName();
+    //核心思想  如果该连接调用了close 方法，把该连接返还给连接池中
     if (CLOSE.equals(methodName)) {
       dataSource.pushConnection(this);
       return null;
@@ -252,6 +254,7 @@ class PooledConnection implements InvocationHandler {
         // throw an SQLException instead of a Runtime
         checkConnection();
       }
+      // 利用反射 使用真是的connection对象 进行方法的调用
       return method.invoke(realConnection, args);
     } catch (Throwable t) {
       throw ExceptionUtil.unwrapThrowable(t);

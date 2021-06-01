@@ -33,6 +33,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
 /**
+ * 缓存执行器
+ * 二级缓存是默认关闭的，如想开启，则可以通过Mybatis配置文件中的<settings>元素下的子元素<setting>来指定cacheEnabled为true。
+ *
+ *    <settings>
+ *       <setting name="cacheEnabled" value="true" />
+ *    </settings>
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
@@ -84,6 +91,7 @@ public class CachingExecutor implements Executor {
 
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+    // 绑定的sql
     BoundSql boundSql = ms.getBoundSql(parameterObject);
     CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
     return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
