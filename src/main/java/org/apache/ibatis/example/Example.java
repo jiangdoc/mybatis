@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,11 +37,20 @@ public class Example {
      * 然后new一个DefaultSqlSession,参数就是上面的Executor
      */
     try (SqlSession session = sqlSessionFactory.openSession()) {
+      /**
+       * @see org.apache.ibatis.binding.MapperProxy#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+       */
       BlogMapper mapper = session.getMapper(BlogMapper.class);
       Blog blog = mapper.selectBlog(1L);
+
       if (Objects.nonNull(blog)) {
         System.out.println(String.format("blog:{id:%s,title:%s}", blog.getId(), blog.getTitle()));
       }
+      List<Blog> blogs = mapper.selectAll();
+      for (Blog blog1 : blogs){
+        System.out.println(String.format("blog:{id:%s,title:%s}", blog1.getId(), blog1.getTitle()));
+      }
+
       //System.in.read();
     }
   }

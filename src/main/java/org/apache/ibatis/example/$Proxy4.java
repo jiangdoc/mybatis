@@ -11,7 +11,7 @@ import org.apache.ibatis.example.entity.Blog;
 /**
  * 通过arthas获取到的BlogMapper的代理类
  */
-public final class $Proxy4 extends Proxy implements BlogMapper {
+/*public final class $Proxy4 extends Proxy implements BlogMapper {
   private static Method m1;
   private static Method m3;
   private static Method m2;
@@ -34,9 +34,9 @@ public final class $Proxy4 extends Proxy implements BlogMapper {
     super(invocationHandler);
   }
 
-  /**
+  *//**
    * @see org.apache.ibatis.binding.MapperProxy#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
-   */
+   *//*
   public final Blog selectBlog(Long l) {
     try {
       return (Blog) this.h.invoke(this, m3, new Object[]{l});
@@ -77,4 +77,4 @@ public final class $Proxy4 extends Proxy implements BlogMapper {
       throw new UndeclaredThrowableException(throwable);
     }
   }
-}
+}*/

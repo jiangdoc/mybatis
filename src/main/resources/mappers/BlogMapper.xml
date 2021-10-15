@@ -6,4 +6,7 @@
   <select id="selectBlog" resultType="org.apache.ibatis.example.entity.Blog" parameterType="java.lang.Long">
     select * from Blog where id = #{id}
   </select>
+  <select id="selectAll" resultType="org.apache.ibatis.example.entity.Blog" >
+    select * from Blog
+  </select>
 </mapper>
